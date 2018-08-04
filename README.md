@@ -1,4 +1,4 @@
-# Know Your Vote (pending name)
+# Know Your Vote
 
 ## Project Description:
 
