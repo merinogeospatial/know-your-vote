@@ -1,6 +1,27 @@
-# project-2 (pending name)
+# Know Your Vote (pending name)
 
-* This team has not yet committed to a concept or topic.
+## Project Description:
+
+Informed Voter App
+* Give an address and we will give you:	
+		* Who are your reps?
+		* Distance to polling location
+		* How did your reps vote on specific(provided) topics?
+			* Do you agree or disagree? 
+* Visual aide - map of counties in US color coded based on how rep voted
+* What’s in the database?
+	* County: name, state, topic, true/false(count?)
+* Current topics - 
+	*Health care 
+	*Education
+* Immigration
+	* Defense
+	* Poverty
+	* Environment
+* Taxes
+	* Civil Rights
+* Economy
+
 
 
 ### Requirements
