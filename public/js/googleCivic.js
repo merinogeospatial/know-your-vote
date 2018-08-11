@@ -1,11 +1,13 @@
 var address = "";
+var state;
+var district;
 
-$("#addressSubmit").on("click", function (event) {
+$("#addressSubmit").on("click", function(event) {
   event.preventDefault();
   // Empty the googleCivic info div
   $(".civicInfo").empty();
 
-  $("#civicDiv").toggleClass('d-none', false);
+  $("#civicDiv").toggleClass("d-none", false);
 
   address = $("#addressInput").val();
   // addressLat = parseFloat("36.247731");
@@ -13,15 +15,17 @@ $("#addressSubmit").on("click", function (event) {
   // address = addressLat + " " + addressLong;
   console.log(address);
 
-  var queryURL = "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyB63BuMNDnsnLpIZ6-X1xj-2JI0Qo82js8&address=" + address;
+  var queryURL =
+    "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyB63BuMNDnsnLpIZ6-X1xj-2JI0Qo82js8&address=" +
+    address;
 
   // Perform an AJAX request with the queryURL
   $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
+    url: queryURL,
+    method: "GET"
+  })
     // After data comes back from the request
-    .then(function (response) {
+    .then(function(response) {
       console.log(response);
 
       // Obtain the information for the congressional district and append it to the div
@@ -38,22 +42,22 @@ $("#addressSubmit").on("click", function (event) {
       var officialIndex = response.offices[officeIndex].officialIndices[0];
 
       // Create the state and district identifiers for db lookup
-      var state = response.normalizedInput.state;
-      var district = officeName.charAt(officeName.length - 1);
-      var stateTag = $("<h5>");
-      stateTag.addClass("state-tag");
-      stateTag.append(state);
-      var districtTag = $("<h5>");
-      districtTag.addClass("district-tag");
-      districtTag.append(district);
-      
+      state = response.normalizedInput.state;
+      district = officeName.charAt(officeName.length - 1);
+      // var stateTag = $("<h5>");
+      // stateTag.addClass("state-tag");
+      // stateTag.append(state);
+      // var districtTag = $("<h5>");
+      // districtTag.addClass("district-tag");
+      // districtTag.append(district);
+
       // Create a tag to hold the official's name
       var officialNameText = $("<h3>");
       officialNameText.addClass("off-name");
       officialNameText.append(response.officials[officialIndex].name);
       $(".civicInfo").append(officialNameText);
-      $(".civicInfo").append(stateTag);
-      $(".civicInfo").append(districtTag);
+      // $(".civicInfo").append(stateTag);
+      // $(".civicInfo").append(districtTag);
 
       // Create a tag to hold the official's party
       var officialPartyText = $("<h4>");
@@ -70,7 +74,10 @@ $("#addressSubmit").on("click", function (event) {
       // Create a tag to hold the official's website
       var officialContactSite = $("<a>");
       officialContactSite.addClass("btn btn-secondary off-site");
-      officialContactSite.attr("href", response.officials[officialIndex].urls[0]);
+      officialContactSite.attr(
+        "href",
+        response.officials[officialIndex].urls[0]
+      );
       officialContactSite.attr("role", "button");
       officialContactSite.attr("target", "_blank");
       officialContactSite.text("Website");
