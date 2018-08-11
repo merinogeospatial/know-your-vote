@@ -4,7 +4,8 @@ var district;
 
 $("#addressSubmit").on("click", function(event) {
   event.preventDefault();
-  // Empty the googleCivic info div
+  // Empty the googleCivic card info
+  $(".card-title"). empty();
   $(".civicInfo").empty();
   $(".civicPhoto").empty();
 
