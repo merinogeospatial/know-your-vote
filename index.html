@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vote App</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-2 mt-4">
+                    <a class="btn btn-light" href="/blog">Select Category: </a>
+                </div>
+            </div>
+            <label for="category"></label>
+            <select class="custom-select" id="category">
+                <option value="Profile">Voter Profile</option>
+                <option value="Topics">Political Topics</option>
+                <option value="Rep">Representatives</option>
+
+            </select>
+        </div>
+        <div class="col-md-5 offset-md-3">
+            <form id="cms">
+                <div class="form-group">
+                    <label for="title">Address:</label>
+                    <input type="text" class="form-control" id="addressInput">
+                    <br />
+
+                    <br />
+                    <button id="addressSubmit" type="submit" class="btn btn-success submit btn-lg">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!-- Google Civic Info-->
+        <div class="card mb-3 d-none" id="civicDiv">
+            <h5 class="card-title card-header bg-dark text-white">
+
+            </h5>
+            <div class='card-body' id='civicCardBody'>
+                <div class="row">
+                    <div class="civicPhoto col-sm-12 col-lg-6">
+                            
+                    </div>
+                    <div class="civicInfo col-sm-12 col-lg-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Custom Script -->
+    <script src="public/js/cms.js" type="text/javascript"></script>
+    <script src="public/js/googleCivic.js" type="text/javascript"></script>
+    <script src="public/js/proPublica.js" type="text/javascript"></script>
+
+</body>
+
+</html>
