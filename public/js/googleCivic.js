@@ -1,3 +1,9 @@
+// Access the .env file
+require("dotenv").config();
+
+// Access the keys.js file and set it to a variable
+var keys = require("./keys.js");
+
 var address = "";
 var state;
 var district;
@@ -18,7 +24,7 @@ $("#addressSubmit").on("click", function(event) {
   console.log(address);
 
   var queryURL =
-    "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyB63BuMNDnsnLpIZ6-X1xj-2JI0Qo82js8&address=" +
+    "https://www.googleapis.com/civicinfo/v2/representatives?key=" + keys.googleCivic + "&address=" +
     address;
 
   // Perform an AJAX request with the queryURL
