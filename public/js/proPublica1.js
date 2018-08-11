@@ -3,9 +3,8 @@ var baseURL = "https://api.propublica.org/congress/v1/house/votes/recent.json";
 // Hold bill IDs here from first ajax call
 var voteArr = [];
 var showCount = 5;
-var chosenRepState= ""; // let's find by STATE and DISTRICT(CDFIPS) *NEED TO CHANGE 0's in DB!
-var chosenRepDistrict = ""; // let's find by STATE and DISTRICT(CDFIPS) *NEED TO CHANGE 0's in DB!
-// ! We can use a filter function to return rep and their vote choice! //
+var chosenState= $(".state-tag").text();
+var chosenDistrict = $(".district-tag").text();
 
 // First call to get sessions
 $.ajax({
@@ -45,7 +44,7 @@ function billInfo(res) {
   console.log("=============================");
 
   var foundRep = searchMe.filter(function(rep) {
-    return rep.state === "TN" && rep.district === "1";
+    return rep.state === chosenState && rep.district === chosenDistrict;
   });
 
   console.log("Your rep's name || ", foundRep[0].name);
