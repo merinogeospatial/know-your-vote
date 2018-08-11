@@ -37,11 +37,23 @@ $("#addressSubmit").on("click", function (event) {
       // Official index to obtain the official's info
       var officialIndex = response.offices[officeIndex].officialIndices[0];
 
+      // Create the state and district identifiers for db lookup
+      var state = response.normalizedInput.state;
+      var district = officeName.charAt(officeName.length - 1);
+      var stateTag = $("<h5>");
+      stateTag.addClass("state-tag");
+      stateTag.append(state);
+      var districtTag = $("<h5>");
+      districtTag.addClass("district-tag");
+      districtTag.append(district);
+      
       // Create a tag to hold the official's name
       var officialNameText = $("<h3>");
       officialNameText.addClass("off-name");
       officialNameText.append(response.officials[officialIndex].name);
       $(".civicInfo").append(officialNameText);
+      $(".civicInfo").append(stateTag);
+      $(".civicInfo").append(districtTag);
 
       // Create a tag to hold the official's party
       var officialPartyText = $("<h4>");
