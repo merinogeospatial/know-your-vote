@@ -4,6 +4,7 @@ $("#addressSubmit").on("click", function (event) {
   event.preventDefault();
   // Empty the googleCivic info div
   $(".civicInfo").empty();
+  $(".civicPhoto").empty();
 
   $("#civicDiv").toggleClass('d-none', false);
 
