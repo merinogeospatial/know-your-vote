@@ -42,10 +42,13 @@ function billInfo(res) {
   var searchMe = res.results.votes.vote.positions;
   console.log("Array to search in: ", searchMe);
   console.log("=============================");
+
   var foundRep = searchMe.filter(function(rep) {
     return rep.state === "TN" && rep.district === "1";
   });
-  console.log(foundRep);
+
+  console.log("Your rep's name || ", foundRep[0].name);
+  console.log("Your rep's decision || ", foundRep[0].vote_position);
   console.log("=============================");
   console.log("=============================");
   console.log("Bill info object: ", res.results);
