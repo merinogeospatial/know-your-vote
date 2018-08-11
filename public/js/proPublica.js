@@ -1,65 +1,62 @@
-// var apiKey = "LjmVYWxsxc3AVh82fQwIvvGqtOYefsTLfhxq7BEK";
-var baseURL =
-  "https://api.propublica.org/congress/v1/115/house/sessions/1/votes/438.json";
+var baseURL = "https://api.propublica.org/congress/v1/house/votes/recent.json";
 
 // Hold bill IDs here from first ajax call
-var billArr = [];
+var voteArr = [];
+var showCount = 5;
+var chosenState = $(".state-tag").text();
+var chosenDistrict = $(".district-tag").text();
 
-// First call to get bill ids, use callback for second ajax call
+// First call to get sessions
 $.ajax({
   type: "GET",
   datatype: "json",
   url: baseURL,
   headers: { "X-API-Key": "LjmVYWxsxc3AVh82fQwIvvGqtOYefsTLfhxq7BEK" },
-  success: getBills
+  success: getBillVotes
 });
 
 // Callback to use ids from first call in second GET url
-function getBills(res) {
-  var showCount = 5;
-
+function getBillVotes(res) {
   console.log("Master Object: ", res);
 
   for (var i = 0; i < showCount; i++) {
-    billID = res.results[0].bills[i].bill_uri;
-    billArr.push(billID);
+    voteAtIndex = res.results.votes[i].vote_uri;
+    voteArr.push(voteAtIndex);
   }
 
-  console.log("Bill Array: ", billArr);
+  console.log("Vote Array: ", voteArr);
 
-  // Second part ajax call goes here, run a loop based on length of bill array, call from url list
+  // Call to get vote array, on success get bills | LOOP THIS
   for (var j = 0; j < showCount; j++) {
     $.ajax({
       type: "GET",
       datatype: "json",
-      url: billArr[j],
+      url: voteArr[j],
       headers: { "X-API-Key": "LjmVYWxsxc3AVh82fQwIvvGqtOYefsTLfhxq7BEK" },
-      success: getRep
+      success: billInfo
     });
   }
 }
 
-function getRep(data) {
-  console.log("==============================");
-  console.log("Master Bill object: ", data);
-  console.log("Date: ", data.results[0].introduced_date);
-  console.log("Subject: ", data.results[0].primary_subject);
-  console.log("Title: ", data.results[0].short_title);
-  console.log("Bill Number: ", data.results[0].number);
-  console.log("Bill Number: ", data.results[0].number);
-  console.log("Latest action: ", data.results[0].latest_major_action);
-  console.log("Govtrack Info: ", data.results[0].govtrack_url);
-  console.log("Official Site: ", data.results[0].congressdotgov_url);
-  console.log("Sponsor URI: ", data.results[0].congressdotgov_url);
-  // Add sponsor and whatever else we need
-  console.log("==============================");
+function billInfo(res) {
+  var searchMe = res.results.votes.vote.positions;
+  console.log("Array to search in: ", searchMe);
+  console.log("=============================");
+
+  var foundRep = searchMe.filter(function(rep) {
+    return rep.state === chosenState && rep.district === chosenDistrict;
+  });
+
+  console.log("Your rep's name || ", foundRep[0].name);
+  console.log("Your rep's decision || ", foundRep[0].vote_position);
+  console.log("=============================");
+  console.log("=============================");
+  console.log("Bill info object: ", res.results);
+  console.log("Bill name:", res.results.votes.vote.bill.short_title);
+  console.log("Bill number:", res.results.votes.vote.bill.number);
+  console.log("Latest action:", res.results.votes.vote.bill.latest_action);
+  console.log("Summary:", res.results.votes.vote.bill.title);
 }
 
-// we need a function that happens on success of the looped calls.
-// this should append a bill card that is created dynamically via template
-
-// running into problems here with CORS. The chrome extension I have for handling this is not working as it usually does
-// I think there is a problem with using a for loop on the ajax calls since they are async
-// We can have a "show" button that loads the cards and fires the ajax call for the specified url when clicked
-// This means we have to track the index, we can simply tie this to the html element (hardcoded), then that index maps to
-// our bill array
+//get recent votes
+//from object store in bills array and votes array
