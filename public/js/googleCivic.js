@@ -18,9 +18,7 @@ $("#addressSubmit").on("click", function(event) {
   // address = addressLat + " " + addressLong;
   console.log(address);
 
-  var queryURL =
-    "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyB63BuMNDnsnLpIZ6-X1xj-2JI0Qo82js8&address=" +
-    address;
+  var queryURL = "/api/address/" + address;
 
   // Perform an AJAX request with the queryURL
   $.ajax({
