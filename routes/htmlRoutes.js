@@ -1,8 +1,5 @@
 var db = require("../models");
 
-var express = require("express");
-// var router = express.Router();
-
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
