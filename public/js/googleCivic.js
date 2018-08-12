@@ -1,12 +1,12 @@
 var address = "";
 var state;
 var district;
-var googleCivicObj;
+// var googleCivicObj;
 
 $("#addressSubmit").on("click", function(event) {
   event.preventDefault();
   // Empty the googleCivic card info
-  $(".card-title"). empty();
+  $(".card-title").empty();
   $(".civicInfo").empty();
   $(".civicPhoto").empty();
 

@@ -4,7 +4,6 @@ require("dotenv").config();
 
 // Access the keys.js file and set it to a variable
 var keys = require("../keys.js");
-var googleCivicObj;
 
 module.exports = function(app) {
   // Get all districts from MySQL for map
