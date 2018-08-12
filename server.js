@@ -1,10 +1,8 @@
 require("dotenv").config();
 
-// Access the keys.js file and set it to a variable
-
-var googleCivic = {
-  key: process.env.GOOGLE_CIVIC_API_KEY
-};
+// var googleCivic = {
+//   key: process.env.GOOGLE_CIVIC_API_KEY
+// };
 
 var express = require("express");
 var bodyParser = require("body-parser");

@@ -1,4 +1,8 @@
 var db = require("../models");
+var googleCivic = require("../api/googleCivic.js");
+
+var express = require("express");
+var router = express.Router();
 
 module.exports = function(app) {
   // Load index page
@@ -8,6 +12,13 @@ module.exports = function(app) {
         msg: "Welcome!",
         examples: dbExamples
       });
+    });
+  });
+
+  router.get("/google-civic", function(req, res) {
+    googleCivic.all(function() {
+
+      res.render("test");
     });
   });
 
