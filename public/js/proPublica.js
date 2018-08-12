@@ -1,5 +1,3 @@
-var baseURL = "https://api.propublica.org/congress/v1/house/votes/recent.json";
-
 $("#addressSubmit").on("click", function(event) {
   event.preventDefault();
 
@@ -11,8 +9,7 @@ $("#addressSubmit").on("click", function(event) {
   $.ajax({
     type: "GET",
     datatype: "json",
-    url: baseURL,
-    headers: { "X-API-Key": "LjmVYWxsxc3AVh82fQwIvvGqtOYefsTLfhxq7BEK" },
+    url: "/api/sessions",
     success: getBillVotes
   });
 
@@ -29,11 +26,11 @@ $("#addressSubmit").on("click", function(event) {
 
     // Call to get vote array, on success get bills | LOOP THIS
     for (var j = 0; j < showCount; j++) {
+      index = voteArr[j].split("/");
       $.ajax({
         type: "GET",
         datatype: "json",
-        url: voteArr[j],
-        headers: { "X-API-Key": "LjmVYWxsxc3AVh82fQwIvvGqtOYefsTLfhxq7BEK" },
+        url: "/api/sessions/" + index[index.length - 1],
         success: billInfo
       });
     }
