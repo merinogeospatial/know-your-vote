@@ -7,7 +7,10 @@
     "start": "node server.js",
     "lint": "eslint **/*.js --quiet",
     "fix": "eslint --fix .",
-    "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit"
+    "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit",
+    "css-build": "node-sass --omit-source-map-url public/styles/styles.scss public/styles/styles.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start-sass": "node-sass -o css css –w"
   },
   "license": "ISC",
   "dependencies": {
