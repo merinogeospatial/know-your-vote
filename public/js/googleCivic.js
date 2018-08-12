@@ -5,7 +5,7 @@ var district;
 $("#addressSubmit").on("click", function(event) {
   event.preventDefault();
   // Empty the googleCivic card info
-  $(".card-title"). empty();
+  $(".card-title").empty();
   $(".civicInfo").empty();
   $(".civicPhoto").empty();
 
@@ -18,7 +18,9 @@ $("#addressSubmit").on("click", function(event) {
   console.log(address);
 
   var queryURL =
-    "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyB63BuMNDnsnLpIZ6-X1xj-2JI0Qo82js8&address=" +
+    "https://www.googleapis.com/civicinfo/v2/representatives?key=" +
+    process.env.googleCivic +
+    "&address=" +
     address;
 
   // Perform an AJAX request with the queryURL

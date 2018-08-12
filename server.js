@@ -1,4 +1,11 @@
 require("dotenv").config();
+
+// Access the keys.js file and set it to a variable
+
+var googleCivic = {
+  key: process.env.GOOGLE_CIVIC_API_KEY
+};
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
@@ -11,7 +18,7 @@ var PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 // Handlebars
 app.engine(
