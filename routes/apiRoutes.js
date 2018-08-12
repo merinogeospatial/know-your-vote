@@ -7,70 +7,38 @@ var keys = require("../keys.js");
 var googleCivicObj;
 
 module.exports = function(app) {
-  // Get all examples
+  // Get all districts from MySQL for map
   app.get("/api/districts", function(req, res) {
     db.Districts.findAll({}).then(function(dbExamples) {
       res.json(dbExamples);
     });
   });
 
-  // Create a new example
-  // app.get("/api/examples", function(req, res) {
-  //   db.Example.create(req.body).then(function(dbExample) {
-  //     res.json(dbExample);
-  //   });
-  // });
+  // Get user's address and run Google Civic API
+  app.get("/api/address/:address", function(req, res) {
+    request({
+      uri:
+        "https://www.googleapis.com/civicinfo/v2/representatives?key=" +
+        keys.googleCivic +
+        "&address=" +
+        req.params.address
+    }).pipe(res);
+  });
 
-  // Process user's address
-//   app.get("/api/address/:address", function(req, res) {
-//     findMyRep(req.params.address).then(function(
-//       response
-//     ) {
-//       res.json(response);
-//     });
-//   });
-// };
+  // Get user's address and run Google Civic API
+  app.get("/api/sessions", function(req, res) {
+    request({
+      uri: "https://api.propublica.org/congress/v1/house/votes/recent.json",
+      headers: keys.proPublica
+    }).pipe(res);
+  });
 
-app.get("/api/address/:address", function(req, res) {
-  return res.json(findMyRep(req.params.address, function() {
-    return googleCivicObj;
-  }));
-});
-
-
-function findMyRep(address) {
-  
-  var queryURL =
-    "https://www.googleapis.com/civicinfo/v2/representatives?key=" +
-    keys.googleCivic +
-    "&address=" +
-    address;
-
-  request(queryURL, { json: true }, (err, response) => {
-    if (err) {
-      return console.log(err);
-    }
-
-    var division_id = Object.keys(response.body.divisions)[2];
-    var officeIndex = response.body.divisions[division_id].officeIndices[0];
-    var officeName = response.body.offices[officeIndex].name;
-    var officialIndex = response.body.offices[officeIndex].officialIndices[0];
-
-    googleCivicObj = {
-      districtName: response.body.divisions[division_id].name,
-      officeIndex: response.body.divisions[division_id].officeIndices[0],
-      officeName: response.body.offices[officeIndex].name,
-      officialName: response.body.officials[officialIndex].name,
-      officialParty: response.body.officials[officialIndex].party,
-      officialPhone: response.body.officials[officialIndex].phones[0],
-      officialURL: response.body.officials[officialIndex].urls[0],
-      state: response.body.normalizedInput.state,
-      district: officeName.charAt(officeName.length - 1),
-      imgURL: response.body.officials[officialIndex].urls[0]
-    };
-
-    console.log("THIS IS WHAT YOUR EXPORT WILL LOOK LIKE: ", googleCivicObj);
-});
-  return "we need to handle this async problem man!";
-}}
-
+  app.get("/api/sessions/:index", function(req, res) {
+    baseURL =
+      "https://api.propublica.org/congress/v1/115/house/sessions/2/votes/";
+    request({
+      uri: baseURL + req.params.index,
+      headers: keys.proPublica
+    }).pipe(res);
+  });
+};
