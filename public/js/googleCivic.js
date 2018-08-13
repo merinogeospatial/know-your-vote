@@ -3,16 +3,21 @@ var state;
 var district;
 // var googleCivicObj;
 
-$("#addressSubmit").on("click", function(event) {
+$("#addressSubmit").on("click", function (event) {
   event.preventDefault();
   // Empty the googleCivic card info
-  $(".card-title").empty();
+  $("#civicCardTitle").empty();
   $(".civicInfo").empty();
   $(".civicPhoto").empty();
 
   $("#civicDiv").toggleClass("d-none", false);
 
-  address = $("#addressInput").val();
+  address =
+    $("#streetInput").val() +
+    " " +
+    $("#cityInput").val() +
+    ", " +
+    $("#stateInput").val();
   // addressLat = parseFloat("36.247731");
   // addressLong = parseFloat("-80.967286");
   // address = addressLat + " " + addressLong;
@@ -22,18 +27,18 @@ $("#addressSubmit").on("click", function(event) {
 
   // Perform an AJAX request with the queryURL
   $.ajax({
-    url: queryURL,
-    method: "GET"
-  })
+      url: queryURL,
+      method: "GET"
+    })
     // After data comes back from the request
-    .then(function(response) {
+    .then(function (response) {
       console.log(response);
 
       // Obtain the information for the congressional district and append it to the div
       var divisionID = Object.keys(response.divisions)[2];
       var congDist = response.divisions[divisionID].name;
       // Append the congressional district text to the card title
-      $(".card-title").append(congDist);
+      $("#civicCardTitle").append(congDist);
 
       // Office index to obtain the office name
       var officeIndex = response.divisions[divisionID].officeIndices[0];
