@@ -30,13 +30,13 @@ $("#addressSubmit").on("click", function(event) {
       console.log(response);
 
       // Obtain the information for the congressional district and append it to the div
-      var division_id = Object.keys(response.divisions)[2];
-      var congDist = response.divisions[division_id].name;
+      var divisionID = Object.keys(response.divisions)[2];
+      var congDist = response.divisions[divisionID].name;
       // Append the congressional district text to the card title
       $(".card-title").append(congDist);
 
       // Office index to obtain the office name
-      var officeIndex = response.divisions[division_id].officeIndices[0];
+      var officeIndex = response.divisions[divisionID].officeIndices[0];
       // Office name
       var officeName = response.offices[officeIndex].name;
       // Official index to obtain the official's info
