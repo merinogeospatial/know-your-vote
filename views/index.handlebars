@@ -146,7 +146,19 @@
         }).addTo(mymap);
 
         // Add markers through get and for loop here
-        var popup = L.popup();
+        //var popup = L.popup();
+
+        $.ajax({
+            url: "/api/districts",
+            method: "GET"
+         }).then(function (response) {
+
+            //L.marker([response[0].longitude, response.latitude]).addTo(map)
+            //.bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            //.openPopup();
+            console.log(response);
+
+         });
 
         // Maybe we can reverse geocode and pass to Google Civic via mapclick? May eant to tesdt if Civic can ingest decimal degrees
         function onMapClick(e) {
@@ -154,7 +166,7 @@
                 .setLatLng(e.latlng)
                 .setContent("You clicked the map at " + e.latlng.toString())
                 .openOn(mymap);
-        }
+        };
 
         mymap.on('click', onMapClick);
     </script>
