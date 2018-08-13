@@ -1,3 +1,24 @@
-.list-group-item {
-  line-height: 2.5;
-}
+body, html {
+  font: 100% georgia, serif;
+  background-color: lightgray; }
+
+.map {
+  width: 100px;
+  height: 100px;
+  min-height: 100%;
+  min-width: 100%;
+  display: block; }
+
+#civicCardBody {
+  background-color: darkgray; }
+
+h1 {
+  color: yellow; }
+
+#addressSubmit {
+  color: black;
+  background-color: darkgray; }
+
+#civicDiv {
+  color: black;
+  background-color: #ffff8b; }

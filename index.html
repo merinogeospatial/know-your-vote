@@ -6,13 +6,26 @@
     <title>Vote App</title>
     <!-- Latest compiled and minified CSS & JS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+    <!--<link rel="stylesheet" href="css/styles.css" media="screen" title="no title"> -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="public/styles/styles.css">
+       <!-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflair.com/ajax/libs/normalize/4.2.0/normalize.css"> --> 
 </head>
 
 <body>
+
+        <body>
+                <div id="map-holder">
+                    <div class="container fill">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            
+
     <div class="container">
+        <h1>VOTE!</h1>
         <div class="row">
             <div class="row">
                 <div class="col-sm-2 mt-4">
@@ -41,9 +54,7 @@
         </div>
         <!-- Google Civic Info-->
         <div class="card mb-3 d-none" id="civicDiv">
-            <h5 class="card-title card-header bg-dark text-white">
-
-            </h5>
+            <h5 class="card-title card-header"></h5>
             <div class='card-body' id='civicCardBody'>
                 <div class="row">
                     <div class="civicPhoto col-sm-12 col-lg-6">
@@ -58,7 +69,7 @@
     </div>
     </div>
     <!-- Custom Script -->
-    <script src="public/js/cms.js" type="text/javascript"></script>
+    <!--<script src="public/js/cms.js" type="text/javascript"></script> -->
     <script src="public/js/googleCivic.js" type="text/javascript"></script>
 
 </body>

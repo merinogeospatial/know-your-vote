@@ -1,0 +1,36 @@
+$font-stack: georgia, serif;
+$primary-color: lightgray;
+$secondary-color: darkgray;
+$tertiary-color: yellow;
+
+
+body, html {
+    font: 100% $font-stack;
+    background-color: $primary-color;
+}
+
+.map {
+    width: 100px;
+    height:100px;
+    min-height: 100%;
+    min-width: 100%;
+    display: block;
+}
+
+#civicCardBody {
+    background-color: $secondary-color;
+}
+
+h1 {
+    color: $tertiary-color;
+}
+
+#addressSubmit {
+    color: black;
+    background-color: darkgray;
+}
+
+#civicDiv {
+    color: black;
+    background-color: rgb(255, 255, 139);
+}
