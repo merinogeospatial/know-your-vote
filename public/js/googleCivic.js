@@ -23,9 +23,7 @@ $("#addressSubmit").on("click", function (event) {
   // address = addressLat + " " + addressLong;
   console.log(address);
 
-  var queryURL =
-    "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyB63BuMNDnsnLpIZ6-X1xj-2JI0Qo82js8&address=" +
-    address;
+  var queryURL = "/api/address/" + address;
 
   // Perform an AJAX request with the queryURL
   $.ajax({
@@ -37,13 +35,13 @@ $("#addressSubmit").on("click", function (event) {
       console.log(response);
 
       // Obtain the information for the congressional district and append it to the div
-      var division_id = Object.keys(response.divisions)[2];
-      var congDist = response.divisions[division_id].name;
+      var divisionID = Object.keys(response.divisions)[2];
+      var congDist = response.divisions[divisionID].name;
       // Append the congressional district text to the card title
       $("#civicCardTitle").append(congDist);
 
       // Office index to obtain the office name
-      var officeIndex = response.divisions[division_id].officeIndices[0];
+      var officeIndex = response.divisions[divisionID].officeIndices[0];
       // Office name
       var officeName = response.offices[officeIndex].name;
       // Official index to obtain the official's info
