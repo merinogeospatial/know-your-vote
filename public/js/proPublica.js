@@ -1,6 +1,7 @@
 $("#addressSubmit").on("click", function(event) {
   event.preventDefault();
-  $(".proPublica").empty();
+  // $(".proPublica").empty();
+  $(".card-columns").empty();
 
   // Hold bill IDs here from first ajax call
   var voteArr = [];
@@ -115,6 +116,7 @@ $("#addressSubmit").on("click", function(event) {
     cardBody.append(nayBtn);
     billInfo.append(cardBody);
     billCard.append(billInfo);
-    $(".proPublica").append(billCard);
+    // $(".proPublica").append(billCard);
+    $(".card-columns").append(billCard);
   }
 });
