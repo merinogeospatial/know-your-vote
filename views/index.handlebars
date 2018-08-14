@@ -138,6 +138,7 @@
     <script src="/js/proPublica.js" type="text/javascript"></script>
 
     <script>
+        
         var mymap = L.map('map').setView([39.828000, -98.579415], 4);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/rmerino/cjkltn7yr6i4f2rofqdbxadwz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoicm1lcmlubyIsImEiOiJjamZpOHFzaGQwM2p5MzNtcXI5c251a2dlIn0.XRFhUVODMYz4Js_gIkO31g', {
@@ -145,18 +146,21 @@
             maxZoom: 23,
         }).addTo(mymap);
 
-        // Add markers through get and for loop here
-        //var popup = L.popup();
+        var popup = L.popup();
 
         $.ajax({
             url: "/api/districts",
             method: "GET"
          }).then(function (response) {
 
-            //L.marker([response[0].longitude, response.latitude]).addTo(map)
-            //.bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-            //.openPopup();
-            console.log(response);
+             for (var i = 0; i < response.length; i++) {
+
+                L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)]).addTo(mymap)
+                .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+                //.openPopup();
+                console.log(response);
+            }
+
 
          });
 
