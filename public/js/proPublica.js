@@ -1,6 +1,6 @@
-$("#addressSubmit").on("click", function (event) {
+$("#addressSubmit").on("click", function(event) {
   event.preventDefault();
-  $(".proPublica").empty();
+  $(".card-columns").empty();
 
   // Hold bill IDs here from first ajax call
   var voteArr = [];
@@ -42,7 +42,7 @@ $("#addressSubmit").on("click", function (event) {
     console.log("Array to search in: ", searchMe);
     console.log("=============================");
 
-    var foundRep = searchMe.filter(function (rep) {
+    var foundRep = searchMe.filter(function(rep) {
       return rep.state === state && rep.district === district;
     });
     console.log("Your rep's name || ", foundRep[0].name);
@@ -69,6 +69,17 @@ $("#addressSubmit").on("click", function (event) {
     var billInfo = $("<div>");
     billInfo.addClass("card mx-auto");
     billInfo.attr("style", "width: 18rem;");
+
+    // Create the yay and nay buttons
+    var yayBtn = $("<button>");
+    yayBtn.addClass("btn btn-success btn-lg");
+    yayBtn.attr("type", "button");
+    yayBtn.text("Yay");
+
+    var nayBtn = $("<button>");
+    nayBtn.addClass("btn btn-danger btn-lg");
+    nayBtn.attr("type", "button");
+    nayBtn.text("Nay");
 
     // Create a div to hold the card body
     var cardBody = $("<div>");
@@ -100,8 +111,10 @@ $("#addressSubmit").on("click", function (event) {
     cardBody.append(billSummary);
     cardBody.append(billAction);
     cardBody.append(repInfo);
+    cardBody.append(yayBtn);
+    cardBody.append(nayBtn);
     billInfo.append(cardBody);
     billCard.append(billInfo);
-    $(".proPublica").append(billCard);
+    $(".card-columns").append(billCard);
   }
 });

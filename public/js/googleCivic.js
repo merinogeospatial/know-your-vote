@@ -3,7 +3,7 @@ var state;
 var district;
 // var googleCivicObj;
 
-$("#addressSubmit").on("click", function (event) {
+$("#addressSubmit").on("click", function(event) {
   event.preventDefault();
   // Empty the googleCivic card info
   $("#civicCardTitle").empty();
@@ -27,11 +27,11 @@ $("#addressSubmit").on("click", function (event) {
 
   // Perform an AJAX request with the queryURL
   $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
+    url: queryURL,
+    method: "GET"
+  })
     // After data comes back from the request
-    .then(function (response) {
+    .then(function(response) {
       console.log(response);
 
       // Obtain the information for the congressional district and append it to the div
@@ -94,6 +94,7 @@ $("#addressSubmit").on("click", function (event) {
       officialImage.addClass("rounded img-responsive img-thumbnail");
       // Set the image source to the photo url result
       officialImage.attr("src", response.officials[officialIndex].photoUrl);
+      officialImage.attr("style", "max-height:315px");
       // Append the image to the image div
       $(".civicPhoto").append(officialImage);
     });
