@@ -1,6 +1,7 @@
 var db = require("../models");
 var request = require("request");
 require("dotenv").config();
+var sequelize = require("sequelize");
 
 // Access the keys.js file and set it to a variable
 var keys = require("../keys.js");
@@ -39,6 +40,38 @@ module.exports = function(app) {
       uri: baseURL + req.params.index,
       headers: keys.proPublica
     }).pipe(res);
+  });
+
+  app.put("/yay/:state/:districts", function(req, res) {
+    db.Districts.update(
+      {
+        yayCount: sequelize.literal("yayCount + 1")
+      },
+      {
+        where: {
+          STATE_ABBR: req.params.state,
+          CDFIPS: req.params.districts
+        }
+      }
+    ).then(function(votedb) {
+      res.json(votedb);
+    });
+  });
+
+  app.put("/nay/:state/:districts", function(req, res) {
+    db.Districts.update(
+      {
+        nayCount: sequelize.literal("nayCount + 1")
+      },
+      {
+        where: {
+          STATE_ABBR: req.params.state,
+          CDFIPS: req.params.districts
+        }
+      }
+    ).then(function(votedb) {
+      res.json(votedb);
+    });
   });
 };
 
@@ -99,7 +132,8 @@ module.exports = function(app) {
 //   app.put("/api/districts", function(req, res) {
 //     db.Post.update(req.body, {
 //       where: {
-//         id: req.body.id
+//         state: req.body.id,
+
 //       }
 //     }).then(function(votedb) {
 //       res.json(votedb);
