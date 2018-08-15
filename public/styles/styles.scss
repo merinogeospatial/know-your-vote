@@ -1,15 +1,48 @@
 /* Coolors Exported Palette - coolors.co/939393-e2e2e2-ffe270-ff4242-86a1f9 */
 
 /* HSL */
-$color1: hsla(0%, 0%, 58%, 1);
-$color2: hsla(0%, 0%, 89%, 1);
-$color3: hsla(48%, 100%, 72%, 1);
-$color4: hsla(0%, 100%, 63%, 1);
-$color5: hsla(226%, 91%, 75%, 1);
+$primary: hsla(0%, 0%, 58%, 1);
+$secondary: hsla(0%, 0%, 89%, 1);
+$tertiary: hsla(48%, 100%, 72%, 1);
+$map1: hsla(0%, 100%, 63%, 1);
+$map2: hsla(226%, 91%, 75%, 1);
 
 /* RGB */
-$color1: rgba(147, 147, 147, 1);
-$color2: rgba(226, 226, 226, 1);
-$color3: rgba(255, 226, 112, 1);
-$color4: rgba(255, 66, 66, 1);
-$color5: rgba(134, 161, 249, 1);
+$primary-color: rgba(147, 147, 147, 1);
+$secondary-color: rgba(226, 226, 226, 1);
+$tertiary-color: rgba(255, 226, 112, 1);
+$map1-color: rgba(255, 66, 66, 1);
+$map2-color: rgba(134, 161, 249, 1);
+
+.list-group-item {
+    line-height: 2.5;
+  }
+  
+  #map {
+      width: 100px;
+      height:100px;
+      min-height: 100%;
+      min-width: 100%;
+      display: block;
+  }
+  
+  html, body {
+      background-color: $primary-color;
+      height: 100%;
+  }
+  
+  #map-holder {
+      height: 50%;
+      width: 100%
+  }
+  
+  .fill {
+      min-height: 100%;
+      height: 100%;
+      width: 100%;
+      max-width: 100%;
+  }
+  
+  .container {
+      padding: 0;
+  }
