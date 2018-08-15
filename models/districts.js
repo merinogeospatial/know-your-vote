@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     PARTY: DataTypes.STRING,
     yayCount: DataTypes.INTEGER,
     nayCount: DataTypes.INTEGER,
-    long: DataTypes.FLOAT(10, 8),
-    lat: DataTypes.FLOAT(10, 8)
+    long: DataTypes.STRING,
+    lat: DataTypes.STRING
   });
   return Districts;
 };
