@@ -11,7 +11,7 @@
     "css-build": "node-sass --omit-source-map-url public/styles/styles.scss public/styles/styles.css",
     "css-watch": "npm run css-build -- --watch",
     "start-sass": "node-sass -o css css –w",
-    "start-dev": "concurrently \"npm start\" \"npm run css-start\""
+    "start-dev": "concurrently \"npm start\" \"npm run css-watch\""
   },
   "license": "ISC",
   "dependencies": {
