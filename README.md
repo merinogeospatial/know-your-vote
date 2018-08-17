@@ -47,6 +47,7 @@ In order to provide the user with this information, the following APIs, librarie
 * npm - mysql2
 * npm - request
 * npm - sequelize
+* Leaflet
 * SASS
 
 ## Credits
