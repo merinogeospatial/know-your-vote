@@ -4,7 +4,7 @@ $("#addressSubmit").on("click", function(event) {
 
   // Hold bill IDs here from first ajax call
   var voteArr = [];
-  var showCount = 5;
+  var showCount = 10;
 
   // First call to get sessions
   $.ajax({
@@ -73,11 +73,13 @@ $("#addressSubmit").on("click", function(event) {
     // Create the yay and nay buttons
     var yayBtn = $("<button>");
     yayBtn.addClass("btn btn-success btn-lg");
+    yayBtn.attr("id", "yay");
     yayBtn.attr("type", "button");
     yayBtn.text("Yay");
 
     var nayBtn = $("<button>");
     nayBtn.addClass("btn btn-danger btn-lg");
+    nayBtn.attr("id", "nay");
     nayBtn.attr("type", "button");
     nayBtn.text("Nay");
 
@@ -117,4 +119,29 @@ $("#addressSubmit").on("click", function(event) {
     billCard.append(billInfo);
     $(".card-columns").append(billCard);
   }
+});
+
+// On 'yay' button click, add to count and disable button
+$(document.body).on("click", "#yay", function(event) {
+  event.preventDefault();
+  $.ajax({
+    method: "PUT",
+    url: "/yay/" + state + "/" + district
+  });
+  $(this).attr("disabled", "");
+  // $(this).addClass("disabled");
+  $(this).next(".btn-danger").attr("disabled", "");
+  console.log("Your vote has been cast!");
+});
+
+// On 'nay' button click, add to count and disable button
+$(document.body).on("click", "#nay", function(event) {
+  event.preventDefault();
+  $.ajax({
+    method: "PUT",
+    url: "/nay/" + state + "/" + district
+  });
+  $(this).attr("disabled", "");
+  $(this).prev(".btn").attr("disabled", "");
+  console.log("Your vote has been cast!");
 });
