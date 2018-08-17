@@ -26,6 +26,17 @@ module.exports = function(app) {
   });
 
   // Get user's address and run Google Civic API
+  app.get("/api/geocode/:address", function(req, res) {
+    request({
+      uri:
+        "http://open.mapquestapi.com/geocoding/v1/address?key=" +
+        keys.geocoder +
+        "&location=" +
+        req.params.address
+    }).pipe(res);
+  });
+
+  // Get user's address and run Google Civic API
   app.get("/api/sessions", function(req, res) {
     request({
       uri: "https://api.propublica.org/congress/v1/house/votes/recent.json",
