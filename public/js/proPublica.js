@@ -89,7 +89,7 @@ $("#addressSubmit").on("click", function(event) {
 
     // Create a tag to hold the bill number and title
     var billTitle = $("<h5>");
-    billTitle.addClass("card-title card-header bg-dark text-white");
+    billTitle.addClass("card-title card-header text-black");
     billTitle.append(res.results.votes.vote.bill.number + ": ");
     billTitle.append(truncTitle);
 

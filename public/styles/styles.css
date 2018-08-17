@@ -66,3 +66,12 @@ body {
 
 .col-sm-12 {
   padding: 20px; }
+
+#civicCardTitle {
+  background-color: #ffe270; }
+
+.btn-custom {
+  background-color: #ffe270; }
+
+.card-title {
+  background-color: #ffe270; }
