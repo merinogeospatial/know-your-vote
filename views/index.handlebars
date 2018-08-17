@@ -14,7 +14,7 @@
         crossorigin=""></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="public/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
 
 </head>
 
@@ -128,7 +128,7 @@
         <!-- proPublica cards div -->
         <div class="row proPublica">
             <div class="card-columns">
-                
+
             </div>
         </div>
     </div>
@@ -140,59 +140,87 @@
     <script>
 
         var mymap = L.map('map').setView([39.828000, -98.579415], 4);
-        L.tileLayer('https://api.mapbox.com/styles/v1/rmerino/cjkt3nzrd04eh2sp8w37qepgh/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoicm1lcmlubyIsImEiOiJjamZpOHFzaGQwM2p5MzNtcXI5c251a2dlIn0.XRFhUVODMYz4Js_gIkO31g', {
+        L.tileLayer('https://api.mapbox.com/styles/v1/rmerino/cjkx5pp4z009q2rmm4q04t7h7/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoicm1lcmlubyIsImEiOiJjamZpOHFzaGQwM2p5MzNtcXI5c251a2dlIn0.XRFhUVODMYz4Js_gIkO31g', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>, merinogeospatial | Know Your Vote ',
             maxZoom: 23,
         }).addTo(mymap);
+
 
         var popup = L.popup();
 
         var yayIcon = L.icon({
             iconUrl: "images/yay.png",
-            iconSize:     [20, 20] // size of the icon
+            iconSize: [20, 20]
         });
 
         var nayIcon = L.icon({
             iconUrl: "images/nay.png",
-            iconSize:     [20, 20] // size of the icon
+            iconSize: [20, 20]
+        });
+
+        var tieIcon = L.icon({
+            iconUrl: "images/tie.png",
+            iconSize: [20, 20]
         });
 
         $.ajax({
             url: "/api/districts",
             method: "GET"
         }).then(function (response) {
+
             for (var i = 0; i < response.length; i++) {
+                dLat = parseFloat(response[i].lat);
+                dLon = parseFloat(response[i].long);
 
                 if (response[i].yayCount > response[i].nayCount) {
 
-                    L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)], {icon: yayIcon}).addTo(mymap)
+                    L.marker([dLat, dLon], { icon: yayIcon }).addTo(mymap)
                         .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
-                    //.openPopup();
-                    console.log(response);
+
+                }
+                else if (response[i].yayCount < response[i].nayCount) {
+
+                    L.marker([dLat, dLon], { icon: nayIcon }).addTo(mymap)
+                        .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
 
                 }
                 else {
-
-                    L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)], {icon: nayIcon}).addTo(mymap)
+                    L.marker([dLat, dLon], { icon: tieIcon }).addTo(mymap)
                         .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
-                    //.openPopup();
-                    console.log(response);
-
                 }
-
-
-            }
+            };
         });
+
+        $("#addressSubmit").on("click", function (event) {
+
+            geocodeMe =
+                $("#streetInput").val() +
+                " " +
+                $("#cityInput").val() +
+                ", " +
+                $("#stateInput").val();
+
+            $.ajax({
+                url: "/api/geocode/" + geocodeMe,
+                method: "GET"
+            }).then(function (data) {
+                lat = data.results[0].locations[0].latLng.lat;
+                lon = data.results[0].locations[0].latLng.lng;
+                
+                mymap.setView([lat, lon],10);
+                console.log("ATTENTION GEOCODE: ", lat,lon);
+            });
+        });
+
 
         // Maybe we can reverse geocode and pass to Google Civic via mapclick? May eant to tesdt if Civic can ingest decimal degrees
         function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString() + "<br>Click on a district marker for more info!")
-                .openOn(mymap);
+            popup.setLatLng(e.latlng).setContent("You clicked the map at " + e.latlng.toString() + "<br>Click on a district marker for more info!").openOn(mymap);
         };
         mymap.on('click', onMapClick);
+
     </script>
+
 </body>
 
 </html>
