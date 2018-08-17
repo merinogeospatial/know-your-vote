@@ -1,15 +1,105 @@
 /* Coolors Exported Palette - coolors.co/939393-e2e2e2-ffe270-ff4242-86a1f9 */
 
 /* HSL */
-$color1: hsla(0%, 0%, 58%, 1);
-$color2: hsla(0%, 0%, 89%, 1);
-$color3: hsla(48%, 100%, 72%, 1);
-$color4: hsla(0%, 100%, 63%, 1);
-$color5: hsla(226%, 91%, 75%, 1);
 
+$primary: hsla(0%, 0%, 58%, 1);
+$secondary: hsla(0%, 0%, 89%, 1);
+$tertiary: hsla(48%, 100%, 72%, 1);
+$map1: hsla(0%, 100%, 63%, 1);
+$map2: hsla(226%, 91%, 75%, 1);
 /* RGB */
-$color1: rgba(147, 147, 147, 1);
-$color2: rgba(226, 226, 226, 1);
-$color3: rgba(255, 226, 112, 1);
-$color4: rgba(255, 66, 66, 1);
-$color5: rgba(134, 161, 249, 1);
+
+$primary-color: rgba(147, 147, 147, 1);
+$secondary-color: rgba(226, 226, 226, 1);
+$tertiary-color: rgba(255, 226, 112, 1);
+$map1-color: rgba(255, 66, 66, 1);
+$map2-color: rgba(134, 161, 249, 1);
+$font-stack: georgia,
+serif;
+$p: 10px;
+$p2: 20px;
+$h1: 100%;
+
+.list-group-item {
+    line-height: 2.5;
+}
+
+#map {
+    width: 100px;
+    height: 100px;
+    min-height: 100%;
+    min-width: 100%;
+    display: block;
+}
+
+html,
+body {
+    background-color: $secondary-color;
+    height: $h1;
+    font: 100% $font-stack;
+}
+
+#map-holder {
+    height: 50%;
+    width: 100%;
+    border-style: solid;
+    border-color: $primary-color;
+}
+
+.main {
+    align-items: center;
+    text-align: center;
+}
+
+#black_vote {
+    width: 40%;
+    height: 20%;
+}
+
+
+#pb1 {
+    background-color: $primary-color;
+}
+
+#pb2 {
+    background-color: $tertiary-color;
+}
+
+#pb3 {
+    background-color: $primary-color;
+}
+
+#card-title {
+    background-color: $tertiary-color;
+}
+
+#addressSubmit {
+    background-color: $tertiary-color;
+}
+
+.fill {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+.container {
+    padding: $p;
+}
+
+.col-lg-4 {
+    padding: $p2;
+}
+
+.col-lg-6 {
+    padding: $p2;
+}
+
+.col-lg-8 {
+    padding: $p2;
+}
+
+.col-sm-12 {
+    padding: $p2;
+}

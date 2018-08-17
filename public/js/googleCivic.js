@@ -92,8 +92,12 @@ $("#addressSubmit").on("click", function(event) {
       // Create a an image tag
       var officialImage = $("<img>");
       officialImage.addClass("rounded img-responsive img-thumbnail");
-      // Set the image source to the photo url result
-      officialImage.attr("src", response.officials[officialIndex].photoUrl);
+      // Set the image source to the photo url result (placeholder if none exists)
+      if (response.officials[officialIndex].photoUrl !== undefined) {
+        officialImage.attr("src", response.officials[officialIndex].photoUrl);
+      } else {
+        officialImage.attr("src", "../images/blank-person.jpg");
+      }
       officialImage.attr("style", "max-height:315px");
       // Append the image to the image div
       $(".civicPhoto").append(officialImage);

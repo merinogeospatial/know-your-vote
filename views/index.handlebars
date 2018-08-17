@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Vote App</title>
-    <!-- Latest compiled and minified CSS & JS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-        crossorigin=""></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="public/styles/styles.css" />
-
-</head>
 
 <body>
     <div id="map-holder">
@@ -25,11 +9,20 @@
         </div>
     </div>
 
+    <div class="main">
+        <img src="../images/KYV_Black.jpg" id="black_vote">
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="pb1" role="progressbar" style="width: 33.3%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" id="pb2" role="progressbar" style="width: 33.4%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" id="pb3" role="progressbar" style="width: 33.3%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-sm-12">
-                <div class="card mb-3" id="addressDiv">
-                    <h5 class="card-title card-header bg-dark text-white">Address Input</h5>
+                <div class="card border-secondary mb-3" id="addressDiv">
+                    <h5 class="card-title card-header text-black" id="card-title">Address Input</h5>
                     <div class='card-body' id='addressCardBody'>
                         <form>
                             <div class="form-group">
@@ -100,18 +93,18 @@
                             </div>
                         </form>
                         <br />
-                        <button id="addressSubmit" type="submit" class="btn btn-success submit btn-lg">Submit</button>
+                        <button id="addressSubmit" type="submit" class="btn submit btn-lg">Submit</button>
                     </div>
                 </div>
             </div>
 
             <!-- Google Civic Info-->
             <div class="col-lg-8 col-sm-12">
-                <div class="card mb-3 d-none" id="civicDiv">
+                <div class="card border-secondary mb-3 d-none" id="civicDiv">
                     <h5 class="card-title card-header bg-dark text-white" id="civicCardTitle">
 
                     </h5>
-                    <div class='card-body' id='civicCardBody'>
+                    <div class='card-body border-secondary' id='civicCardBody'>
                         <div class="row">
                             <div class="civicPhoto col-sm-12 col-lg-6">
 
@@ -128,7 +121,7 @@
         <!-- proPublica cards div -->
         <div class="row proPublica">
             <div class="card-columns">
-                
+
             </div>
         </div>
     </div>
@@ -149,12 +142,12 @@
 
         var yayIcon = L.icon({
             iconUrl: "images/yay.png",
-            iconSize:     [20, 20] // size of the icon
+            iconSize: [20, 20] // size of the icon
         });
 
         var nayIcon = L.icon({
             iconUrl: "images/nay.png",
-            iconSize:     [20, 20] // size of the icon
+            iconSize: [20, 20] // size of the icon
         });
 
         $.ajax({
@@ -165,7 +158,7 @@
 
                 if (response[i].yayCount > response[i].nayCount) {
 
-                    L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)], {icon: yayIcon}).addTo(mymap)
+                    L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)], { icon: yayIcon }).addTo(mymap)
                         .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
                     //.openPopup();
                     console.log(response);
@@ -173,7 +166,7 @@
                 }
                 else {
 
-                    L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)], {icon: nayIcon}).addTo(mymap)
+                    L.marker([parseFloat(response[i].lat), parseFloat(response[i].long)], { icon: nayIcon }).addTo(mymap)
                         .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
                     //.openPopup();
                     console.log(response);
