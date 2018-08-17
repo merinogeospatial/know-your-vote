@@ -79,7 +79,7 @@ $("#addressSubmit").on("click", function(event) {
 
       // Create a tag to hold the official's website
       var officialContactSite = $("<a>");
-      officialContactSite.addClass("btn btn-secondary off-site");
+      officialContactSite.addClass("btn btn-custom off-site");
       officialContactSite.attr(
         "href",
         response.officials[officialIndex].urls[0]
