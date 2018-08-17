@@ -10,7 +10,8 @@
     "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit",
     "css-build": "node-sass --omit-source-map-url public/styles/styles.scss public/styles/styles.css",
     "css-watch": "npm run css-build -- --watch",
-    "start-sass": "node-sass -o css css –w"
+    "start-sass": "node-sass -o css css –w",
+    "start-dev": "concurrently \"npm start\" \"npm run css-watch\""
   },
   "license": "ISC",
   "dependencies": {
@@ -26,6 +27,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "concurrently": "^3.6.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
