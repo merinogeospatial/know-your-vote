@@ -193,22 +193,18 @@
 
         $("#addressSubmit").on("click", function (event) {
 
-            geocodeMe =
-                $("#streetInput").val() +
-                " " +
-                $("#cityInput").val() +
-                ", " +
-                $("#stateInput").val();
+            city = $("#cityInput").val();
+            state = $("#stateInput").val();
 
             $.ajax({
-                url: "/api/geocode/" + geocodeMe,
+                url: "/api/geocode/" + city + "," + state,
                 method: "GET"
             }).then(function (data) {
                 lat = data.results[0].locations[0].latLng.lat;
                 lon = data.results[0].locations[0].latLng.lng;
                 
                 mymap.setView([lat, lon],10);
-                console.log("ATTENTION GEOCODE: ", lat,lon);
+                console.log("ATTENTION GEOCODE: ", data);
             });
         });
 
