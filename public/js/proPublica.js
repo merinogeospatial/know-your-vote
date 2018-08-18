@@ -67,17 +67,17 @@ $("#addressSubmit").on("click", function(event) {
 
     // Create a div to hold the bill info
     var billInfo = $("<div>");
-    billInfo.addClass("card mx-auto");
+    billInfo.addClass("card mx-auto justify-content-between");
 
     // Create the yay and nay buttons
     var yayBtn = $("<button>");
-    yayBtn.addClass("btn btn-success border-secondary btn-lg");
+    yayBtn.addClass("btn btn-success border-secondary btn-lg m-2");
     yayBtn.attr("id", "yay");
     yayBtn.attr("type", "button");
     yayBtn.text("Yay");
 
     var nayBtn = $("<button>");
-    nayBtn.addClass("btn btn-danger border-secondary btn-lg");
+    nayBtn.addClass("btn btn-danger border-secondary btn-lg m-2");
     nayBtn.attr("id", "nay");
     nayBtn.attr("type", "button");
     nayBtn.text("Nay");
@@ -104,9 +104,11 @@ $("#addressSubmit").on("click", function(event) {
     billAction.text(res.results.votes.vote.bill.latest_action);
 
     // Create a tag to hold the rep's name and their decision on the bill
-    var repInfo = $("<p>");
+    var repInfo = $("<strong><p>");
     repInfo.addClass("card-text");
-    repInfo.append(foundRep[0].name + ": " + foundRep[0].vote_position);
+    repInfo.append(
+      foundRep[0].name + ": " + foundRep[0].vote_position + "<br>"
+    );
 
     // Append info to the proPublica div
     cardBody.append(billTitle);

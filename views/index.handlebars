@@ -11,7 +11,7 @@
         </div>
 
         <div class="main">
-            <img src="../images/KYV_Black.jpg" id="black_vote">
+            <img src="../images/KYV_Black.jpg" id="B_vote">
         </div>
 
         <div class="progress">
@@ -127,7 +127,7 @@
             </div>
     </div>
     <!-- Sticky footer -->
-    <footer class="footer">
+    <footer class="footer mt-4 p-0">
         <div class="container">
             Copyright &copy; Richard Haar, Scott Johnson, Rich Merino, and Anna Rutherford
         </div>
@@ -144,11 +144,10 @@
         function initMap() {
 
             L.tileLayer('https://api.mapbox.com/styles/v1/rmerino/cjkx5pp4z009q2rmm4q04t7h7/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoicm1lcmlubyIsImEiOiJjamZpOHFzaGQwM2p5MzNtcXI5c251a2dlIn0.XRFhUVODMYz4Js_gIkO31g', {
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>, merinogeospatial | Know Your Vote ',
+                attribution: 'Know Your Vote ©',
                 maxZoom: 23,
             }).addTo(mymap);
         }
-
 
 
         var popup = L.popup();
@@ -186,19 +185,19 @@
 
 
                         L.marker([dLat, dLon], { icon: yayIcon }).addTo(markers)
-                            .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+                            .bindPopup("<strong>District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "</strong><br><i>" + response[i].NAME + "</i><br><font color='green'>Likes: " + response[i].yayCount + "</font> || <font color='red'>Dislikes: " + response[i].nayCount + "</font>");
 
                     }
                     else if (response[i].yayCount < response[i].nayCount) {
 
 
                         L.marker([dLat, dLon], { icon: nayIcon }).addTo(markers)
-                            .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+                            .bindPopup("<strong>District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "</strong><br><i>" + response[i].NAME + "</i><br><font color='green'>Likes: " + response[i].yayCount + "</font> || <font color='red'>Dislikes: " + response[i].nayCount + "</font>");
 
                     }
                     else {
                         L.marker([dLat, dLon], { icon: tieIcon }).addTo(markers)
-                            .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+                            .bindPopup("<strong>District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "</strong><br><i>" + response[i].NAME + "</i><br><font color='green'>Likes: " + response[i].yayCount + "</font> || <font color='red'>Dislikes: " + response[i].nayCount + "</font>");
                     }
                 };
                 mymap.addLayer(markers);
