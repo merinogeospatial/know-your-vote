@@ -68,7 +68,6 @@ $("#addressSubmit").on("click", function(event) {
     // Create a div to hold the bill info
     var billInfo = $("<div>");
     billInfo.addClass("card mx-auto");
-    billInfo.attr("style", "width: 18rem;");
 
     // Create the yay and nay buttons
     var yayBtn = $("<button>");
