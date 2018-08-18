@@ -27,7 +27,7 @@ body {
   align-items: center;
   text-align: center; }
 
-#black_vote {
+#B_vote {
   width: 40%;
   height: 20%; }
 
@@ -71,7 +71,12 @@ body {
   background-color: #ffe270; }
 
 .btn-custom {
-  background-color: #ffe270; }
+  background-color: #ffe270;
+  border: 1px solid #939393; }
 
 .card-title {
-  background-color: #ffe270; }
+  background-color: #ffe270;
+  border: 1px solid #939393; }
+
+.card-body {
+  border: 1px solid #939393; }

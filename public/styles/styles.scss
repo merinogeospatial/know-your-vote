@@ -20,6 +20,7 @@ $p: 10px;
 $p2: 20px;
 $h1: 100%;
 
+
 .list-group-item {
     line-height: 2.5;
 }
@@ -51,7 +52,7 @@ body {
     text-align: center;
 }
 
-#black_vote {
+#B_vote {
     width: 40%;
     height: 20%;
 }
@@ -110,9 +111,14 @@ body {
 
 .btn-custom {
     background-color: $tertiary-color;
+    border: 1px solid $primary-color;
 }
 
 .card-title {
     background-color: $tertiary-color;
+    border: 1px solid $primary-color;
 }
 
+.card-body {
+    border: 1px solid $primary-color;
+}
