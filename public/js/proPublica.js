@@ -126,11 +126,18 @@ $(document.body).on("click", "#yay", function(event) {
   event.preventDefault();
   $.ajax({
     method: "PUT",
-    url: "/yay/" + state + "/" + district
+    url: "/yay/" + state + "/" + district,
+    success: function() {
+      mymap.removeLayer(markers);
+      markers = "";
+      loadMarkers();
+    }
   });
   $(this).attr("disabled", "");
   // $(this).addClass("disabled");
-  $(this).next(".btn-danger").attr("disabled", "");
+  $(this)
+    .next(".btn-danger")
+    .attr("disabled", "");
   console.log("Your vote has been cast!");
 });
 
@@ -139,9 +146,16 @@ $(document.body).on("click", "#nay", function(event) {
   event.preventDefault();
   $.ajax({
     method: "PUT",
-    url: "/nay/" + state + "/" + district
+    url: "/nay/" + state + "/" + district,
+    success: function() {
+      mymap.removeLayer(markers);
+      markers = "";
+      loadMarkers();
+    }
   });
   $(this).attr("disabled", "");
-  $(this).prev(".btn").attr("disabled", "");
+  $(this)
+    .prev(".btn")
+    .attr("disabled", "");
   console.log("Your vote has been cast!");
 });
