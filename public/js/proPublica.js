@@ -71,13 +71,13 @@ $("#addressSubmit").on("click", function(event) {
 
     // Create the yay and nay buttons
     var yayBtn = $("<button>");
-    yayBtn.addClass("btn btn-success btn-lg");
+    yayBtn.addClass("btn btn-success border-secondary btn-lg");
     yayBtn.attr("id", "yay");
     yayBtn.attr("type", "button");
     yayBtn.text("Yay");
 
     var nayBtn = $("<button>");
-    nayBtn.addClass("btn btn-danger btn-lg");
+    nayBtn.addClass("btn btn-danger border-secondary btn-lg");
     nayBtn.attr("id", "nay");
     nayBtn.attr("type", "button");
     nayBtn.text("Nay");
@@ -85,6 +85,7 @@ $("#addressSubmit").on("click", function(event) {
     // Create a div to hold the card body
     var cardBody = $("<div>");
     cardBody.addClass("card-body");
+    cardBody.css("{border: 1px solid $primary-color}");
 
     // Create a tag to hold the bill number and title
     var billTitle = $("<h5>");
@@ -125,11 +126,18 @@ $(document.body).on("click", "#yay", function(event) {
   event.preventDefault();
   $.ajax({
     method: "PUT",
-    url: "/yay/" + state + "/" + district
+    url: "/yay/" + state + "/" + district,
+    success: function() {
+      mymap.removeLayer(markers);
+      markers = "";
+      loadMarkers();
+    }
   });
   $(this).attr("disabled", "");
   // $(this).addClass("disabled");
-  $(this).next(".btn-danger").attr("disabled", "");
+  $(this)
+    .next(".btn-danger")
+    .attr("disabled", "");
   console.log("Your vote has been cast!");
 });
 
@@ -138,9 +146,16 @@ $(document.body).on("click", "#nay", function(event) {
   event.preventDefault();
   $.ajax({
     method: "PUT",
-    url: "/nay/" + state + "/" + district
+    url: "/nay/" + state + "/" + district,
+    success: function() {
+      mymap.removeLayer(markers);
+      markers = "";
+      loadMarkers();
+    }
   });
   $(this).attr("disabled", "");
-  $(this).prev(".btn").attr("disabled", "");
+  $(this)
+    .prev(".btn")
+    .attr("disabled", "");
   console.log("Your vote has been cast!");
 });

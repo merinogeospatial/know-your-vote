@@ -40,7 +40,7 @@ body {
   text-align: center;
 }
 
-#black_vote {
+#B_vote {
   width: 40%;
   height: 20%;
 }
@@ -98,12 +98,15 @@ body {
 
 .btn-custom {
   background-color: #ffe270;
-}
+  border: 1px solid #939393; }
 
 .card-title {
   background-color: #ffe270;
-}
+  border: 1px solid #939393; }
 
+.card-body {
+  border: 1px solid #939393; }
+}
 
 .footer {
   position: absolute;
@@ -123,4 +126,3 @@ body {
   .card-columns {
       column-count: 2;
   }
-}

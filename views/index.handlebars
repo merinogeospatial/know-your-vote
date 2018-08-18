@@ -123,6 +123,7 @@
                 <div class="card-columns">
 
                 </div>
+
             </div>
     </div>
     <!-- Sticky footer -->
@@ -135,13 +136,19 @@
     <script src="/js/googleCivic.js" type="text/javascript"></script>
     <script src="/js/proPublica.js" type="text/javascript"></script>
 
+    <!-- Let's keep Leaflet in index.handlebars -->
     <script>
 
         var mymap = L.map('map').setView([39.828000, -98.579415], 4);
-        L.tileLayer('https://api.mapbox.com/styles/v1/rmerino/cjkx5pp4z009q2rmm4q04t7h7/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoicm1lcmlubyIsImEiOiJjamZpOHFzaGQwM2p5MzNtcXI5c251a2dlIn0.XRFhUVODMYz4Js_gIkO31g', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>, merinogeospatial | Know Your Vote ',
-            maxZoom: 23,
-        }).addTo(mymap);
+
+        function initMap() {
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/rmerino/cjkx5pp4z009q2rmm4q04t7h7/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoicm1lcmlubyIsImEiOiJjamZpOHFzaGQwM2p5MzNtcXI5c251a2dlIn0.XRFhUVODMYz4Js_gIkO31g', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>, merinogeospatial | Know Your Vote ',
+                maxZoom: 23,
+            }).addTo(mymap);
+        }
+
 
 
         var popup = L.popup();
@@ -162,42 +169,61 @@
 
         });
 
-        $.ajax({
-            url: "/api/districts",
-            method: "GET"
-        }).then(function (response) {
+        var markers;
 
-            for (var i = 0; i < response.length; i++) {
-                dLat = parseFloat(response[i].lat);
-                dLon = parseFloat(response[i].long);
+        function loadMarkers() {
+            $.ajax({
+                url: "/api/districts",
+                method: "GET"
+            }).then(function (response) {
 
-                if (response[i].yayCount > response[i].nayCount) {
+                markers = new L.FeatureGroup();
+                for (var i = 0; i < response.length; i++) {
+                    dLat = parseFloat(response[i].lat);
+                    dLon = parseFloat(response[i].long);
 
-
-                    L.marker([dLat, dLon], { icon: yayIcon }).addTo(mymap)
-                        .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
-
-                }
-                else if (response[i].yayCount < response[i].nayCount) {
+                    if (response[i].yayCount > response[i].nayCount) {
 
 
-                    L.marker([dLat, dLon], { icon: nayIcon }).addTo(mymap)
+                        L.marker([dLat, dLon], { icon: yayIcon }).addTo(markers)
+                            .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
 
-                        .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+                    }
+                    else if (response[i].yayCount < response[i].nayCount) {
 
-                }
-                else {
-                    L.marker([dLat, dLon], { icon: tieIcon }).addTo(mymap)
-                        .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
-                }
-            };
-        });
+
+                        L.marker([dLat, dLon], { icon: nayIcon }).addTo(markers)
+                            .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+
+                    }
+                    else {
+                        L.marker([dLat, dLon], { icon: tieIcon }).addTo(markers)
+                            .bindPopup("District " + response[i].STATE_ABBR + " - " + response[i].CDFIPS + "<br>" + response[i].NAME + "<br>Likes: " + response[i].yayCount + " || Dislikes: " + response[i].nayCount);
+                    }
+                };
+                mymap.addLayer(markers);
+            });
+        }
+
 
         $("#addressSubmit").on("click", function (event) {
 
             city = $("#cityInput").val();
             state = $("#stateInput").val();
 
+            zoomTo(city, state);
+
+        });
+
+
+        // Maybe we can reverse geocode and pass to Google Civic via mapclick? May eant to tesdt if Civic can ingest decimal degrees
+        function onMapClick(e) {
+            popup.setLatLng(e.latlng).setContent("You clicked the map at " + e.latlng.toString() + "<br>Click on a district marker for more info!").openOn(mymap);
+        };
+        mymap.on('click', onMapClick);
+
+        // Function to zoom to location
+        function zoomTo(city, state) {
             $.ajax({
                 url: "/api/geocode/" + city + "," + state,
                 method: "GET"
@@ -208,14 +234,10 @@
                 mymap.setView([lat, lon], 10);
                 console.log("ATTENTION GEOCODE: ", data);
             });
-        });
+        }
 
-
-        // Maybe we can reverse geocode and pass to Google Civic via mapclick? May eant to tesdt if Civic can ingest decimal degrees
-        function onMapClick(e) {
-            popup.setLatLng(e.latlng).setContent("You clicked the map at " + e.latlng.toString() + "<br>Click on a district marker for more info!").openOn(mymap);
-        };
-        mymap.on('click', onMapClick);
+        initMap();
+        loadMarkers();
 
     </script>
 
