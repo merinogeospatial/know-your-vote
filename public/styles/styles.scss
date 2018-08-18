@@ -27,18 +27,24 @@ $h1: 100%;
 
 #map {
     width: 100px;
-    height: 100px;
+    height: 400px;
     min-height: 100%;
     min-width: 100%;
     display: block;
 }
 
-html,
-body {
-    background-color: $secondary-color;
-    height: $h1;
-    font: 100% $font-stack;
-}
+html {
+    position: relative;
+    min-height: 100%;
+    font: $font-stack;
+  }
+  
+  body {
+    background-color: #e2e2e2;
+    /* height: 100%; */
+    font: 100% georgia, serif;
+    margin-bottom: 65px;
+  }
 
 #map-holder {
     height: 50%;
@@ -121,4 +127,27 @@ body {
 
 .card-body {
     border: 1px solid $primary-color;
+}
+
+.off-site {
+    color: black;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 85px;
+    line-height: 55px;
+    width: 100%;
+    background-color: #ffe270;
+    color: black;
+    text-align: center;
+    font-size: 12px;
+    border-top: 5px solid $primary-color;
+  }
+  
+  @media (max-width: 1024px) {
+    .card-columns {
+        column-count: 2;
+    }
 }
